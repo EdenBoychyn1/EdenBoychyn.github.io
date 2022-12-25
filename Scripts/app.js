@@ -13,6 +13,40 @@
         {
             location.href = "about.html";
         });
+
+        // Step 1 - Get a refernence to an entry point(s) (insertion/deleteion) 
+        let MainContent = document.getElementsByTagName("main")[0];
+        let DocumentBody = document.body;
+        // Step 2 - Create a HTML Elemenet in Memory 
+        let MainParagraph = document.createElement("p");
+        let Article = document.createElement("article");
+        let ArticleParagraph = `<p id="ArticleParagraph" class="mt-3"> This is the article Paragraph</p>`;
+
+        // Step 3 - Configure new Element
+        MainParagraph.setAttribute("id", "MainParagraph");
+        MainParagraph.setAttribute("class", "mt-3");
+        let FirstString = "This is";
+        //MainParagraph.textContent = "This is the Main Paragraph";
+        let SecondString = `${FirstString} the Main Paragraph`;
+        MainParagraph.textContent = SecondString;
+        Article.setAttribute("class", "container");
+
+        // Step 4 - Perrform insertion / deletion
+
+        // Example mof Insert After (append)
+        MainContent.appendChild(MainParagraph);
+        Article.innerHTML = ArticleParagraph;
+        DocumentBody.appendChild(Article);
+        
+        
+        // example of insert before
+        //MainContent.before(MainParagraph);
+
+        // Example of deletion
+        //document.getElementById("AboutUsButton").remove();
+        //AboutUsButton.remove();
+
+        // ES6 AND HTML5 => Template Strings => "Super Strings" 
     }
 
     function DisplayProductsPage()
