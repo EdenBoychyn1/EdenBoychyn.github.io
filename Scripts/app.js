@@ -47,6 +47,10 @@
         //AboutUsButton.remove();
 
         // ES6 AND HTML5 => Template Strings => "Super Strings" 
+
+        // Test our new Contact Class
+        //let eden = new Contact("Eden Boychyn", "6472108749", "Eden_Boychyn@hotmail.com");
+        //console.log(eden.toString());
     }
 
     function DisplayProductsPage()
@@ -67,6 +71,72 @@
     function DisplayContactUsPage()
     {
         console.log("Contact Page");
+
+        let sendButton = document.getElementById("sendButton");
+        let subscribeCheckBox = document.getElementById("subscribeCheckBox");
+
+        sendButton.addEventListener("click", function(event)
+        {
+            //event.preventDefault(); //prevents the default behaviour of any event
+            // Submit attempts to submit the form
+
+            // checked is a state that determines the state of the checkbox
+            if(subscribeCheckBox.checked)
+            {
+                //console.log("Checkbox checked!");
+                let contact = new Contact(fullName.value, contactNumber.value, emailAddress.value);
+                if(contact.serialize())
+                {
+                    let key = contact.FullName.substring(0, 1) + Date.now();
+
+                    localStorage.setItem(key, contact.serialize());
+                }
+            }
+        });
+    }
+
+    function DisplayContactListPage()
+    {
+        console.log("Contact-List Page");
+
+        if(localStorage.length > 0)
+        {
+            let contactList = document.getElementById("contactList");
+
+            let data = ""; // data cotnainer -> add deserialize data from the localstorage 
+
+            let keys = Object.keys(localStorage); // returns a string array of keys 
+
+            let index = 1; // Counts how many keys 
+
+            // For every key in the keys array (collection), loop
+            for (const key of keys) 
+            {
+                let contactData = localStorage.getItem(key); // get local storage data value related to the key
+                
+                 let contact = new Contact(); // create a new empty contact object 
+                 contact.deserialize(contactData);
+
+                 // Inject a repeatable row into the Contact List
+                 // += is equal to data plus the table
+                 data += `<tr>
+                 <th scope="row" class="text-center">${index}</th>
+                 <td>${contact.FullName}</td>
+                 <td>${contact.ContactNumber}</td>
+                 <td>${contact.EmailAddress}</td>
+                 <td></td>
+                 <td></td>
+                 </tr>
+                 `;
+
+                 index++;
+
+            }
+
+            // Writes it to the contactList element table
+            contactList.innerHTML = data;
+
+        }
     }
 
     // 3 types of anonymous functions
@@ -91,6 +161,9 @@
                 break;
             case "Contact Us": 
                 DisplayContactUsPage();
+                break;
+            case "Contact-List": 
+                DisplayContactListPage();
                 break;
         }
     } 
