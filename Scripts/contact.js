@@ -1,5 +1,6 @@
-class Contact 
-{
+(function (core) {
+    class Contact 
+    {
     // public properties (getters and setters)
     get FullName()
     {
@@ -67,4 +68,7 @@ class Contact
         return `Full Name: ${this.FullName}\n Contact Number: ${this.ContactNumber}\n Email Address: ${this.EmailAddress}`; 
     }
 
-}
+    }
+
+    core.Contact = Contact;
+})(core || (core = {}));
